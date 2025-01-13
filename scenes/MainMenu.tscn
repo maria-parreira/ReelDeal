@@ -1,0 +1,174 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://assets/images/VP_Logo_W_RGB.png" type="Texture" id=1]
+[ext_resource path="res://scripts/Logo.gd" type="Script" id=2]
+[ext_resource path="res://assets/fonts/Poppins-Medium.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://scripts/MainMenu.gd" type="Script" id=4]
+[ext_resource path="res://scripts/StartButton.gd" type="Script" id=5]
+
+[sub_resource type="Shader" id=8]
+code = "shader_type canvas_item;
+
+void fragment() {
+    // Cor do topo (azul)
+    vec4 top_color = vec4(0.2, 0.4, 0.8, 1.0); 
+    // Cor do fundo (laranja)
+    vec4 bottom_color = vec4(0.9, 0.5, 0.2, 1.0); 
+    
+    // Gradiente interpolado verticalmente
+    COLOR = mix(top_color, bottom_color, UV.y);
+}
+"
+
+[sub_resource type="ShaderMaterial" id=9]
+shader = SubResource( 8 )
+
+[sub_resource type="Animation" id=4]
+resource_name = "LogoIntro"
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray(  ),
+"times": PoolRealArray(  )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 1.36422e-12, -0.25, 0, 0.25, 0, 798, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:scale")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 0.8, 1 ),
+"transitions": PoolRealArray( 0.435275, 1.41421, 1.7411, 1.7411 ),
+"update": 0,
+"values": [ Vector2( 0.2, 0.22 ), Vector2( 0.273, 0.3 ), Vector2( 0.364, 0.4 ), Vector2( 0.273, 0.3 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.001
+
+[sub_resource type="DynamicFont" id=6]
+size = 59
+outline_size = 1
+use_filter = true
+font_data = ExtResource( 3 )
+
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 0.309804, 0.447059, 0.811765, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 0.309804, 0.447059, 0.811765, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 1, 1, 1, 1 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="Animation" id=12]
+resource_name = "PlayButton"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="MainMenu" type="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -540.0
+margin_top = -960.0
+margin_right = 540.0
+margin_bottom = 960.0
+rect_min_size = Vector2( 1080, 1920 )
+script = ExtResource( 4 )
+
+[node name="Background" type="ColorRect" parent="."]
+material = SubResource( 9 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -540.0
+margin_top = -960.0
+margin_right = 540.0
+margin_bottom = 960.0
+rect_min_size = Vector2( 1080, 1920 )
+size_flags_horizontal = 3
+
+[node name="Logo" type="Sprite" parent="."]
+position = Vector2( 529, 1.36422e-12 )
+scale = Vector2( 0.2, 0.22 )
+z_as_relative = false
+texture = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Logo"]
+autoplay = "LogoIntro"
+reset_on_save = false
+anims/LogoIntro = SubResource( 4 )
+anims/RESET = SubResource( 5 )
+
+[node name="StartButton" type="Button" parent="."]
+modulate = Color( 0, 0, 0, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -187.0
+margin_top = 169.0
+margin_right = 191.0
+margin_bottom = 316.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 6 )
+custom_styles/hover = SubResource( 10 )
+custom_styles/pressed = SubResource( 11 )
+custom_styles/normal = SubResource( 7 )
+text = "Play Game"
+icon_align = 1
+script = ExtResource( 5 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="StartButton"]
+reset_on_save = false
+anims/PlayButton = SubResource( 12 )
+
+[connection signal="pressed" from="StartButton" to="." method="_on_StartButton_pressed"]
