@@ -55,13 +55,10 @@ This project is a slot machine game inspired by casino slot machines. The player
 
 ## Customization
 - **Winning Positions:**
-  - Modify the `win_positions` array in `slot_machine_logic.gd` to set custom winning conditions.
 
 - **Animation Speed:**
-  - Adjust `MOVE` and `time_interval` variables in `slot_machine_logic.gd` to change the speed of the reels.
 
 - **Scene Transition Timing:**
-  - Update the `wait_time` in `scene_transition_control.gd` to alter the duration of the fade-in effect.
 
 ## Future Improvements
 - Add more winning combinations for increased complexity.
